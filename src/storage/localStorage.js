@@ -17,11 +17,11 @@ export function getLocalStorage(key, defaultValue = null) {
       return parsedItem;
     } else {
       console.log(`${key} not found in local storage.`);
-      return defaultValue; // Use the defaultValue if the item is not found
+      return defaultValue;
     }
   } catch (error) {
     console.error(`Error retrieving ${key} from local storage:`, error);
-    return defaultValue; // Use the defaultValue in case of any error
+    return defaultValue;
   }
 }
 

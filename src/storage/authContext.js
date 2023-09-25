@@ -1,59 +1,52 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { removeAuthToken } from './auth';
-import { getLocalStorage, setLocalStorage, removeLocalStorage } from './localStorage'; // Import the localStorage functions
+import { getLocalStorage, setLocalStorage, removeLocalStorage } from './localStorage'; 
 
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  // Initialize authToken based on the presence of the accessToken in local storage
-  const initialAuthToken = getLocalStorage('accessToken', ''); // Provide an empty string as the default value
+  const initialAuthToken = getLocalStorage('accessToken', ''); 
   const [authToken, setAuthToken] = useState(initialAuthToken);
   const [venueManager, setVenueManager] = useState(false);
-  const [userName, setUserName] = useState(''); // Define userName state
+  const [userName, setUserName] = useState(''); 
 
   useEffect(() => {
-    // Retrieve the isManager value from localStorage on component mount
     const storedIsManager = getLocalStorage('isManager');
     if (storedIsManager !== null) {
       setVenueManager(storedIsManager);
     }
 
-    // Retrieve the accessToken value from localStorage on component mount
     const storedAccessToken = getLocalStorage('accessToken');
     if (storedAccessToken) {
       setAuthToken(storedAccessToken);
     }
 
-    // Retrieve the userName value from localStorage on component mount
     const storedUserName = getLocalStorage('userName');
     if (storedUserName) {
       setUserName(storedUserName);
     }
   }, []);
 
-  // Determine authentication status based on the presence of authToken
   const isRegistered = () => !!authToken;
   const isManager = () => isRegistered() && venueManager;
   const isCustomer = () => isRegistered() && !venueManager;
 
   const logout = () => {
-    removeAuthToken(); // This function is not defined in the provided code; make sure it's properly implemented
+    removeAuthToken(); 
     setAuthToken('');
     removeLocalStorage('userName');
     setVenueManager(false);
 
-    // Clear the relevant items from local storage when logging out
     removeLocalStorage('accessToken');
     removeLocalStorage('isManager');
     removeLocalStorage('userName');
   };
 
-  const login = (token, isManager, name) => { // Pass the name here
+  const login = (token, isManager, name) => {
     setAuthToken(token);
     setVenueManager(isManager);
-    setUserName(name); // Set the userName in state
+    setUserName(name);
 
-    // Store the authToken, isManager, and userName values in local storage
     setLocalStorage('accessToken', token);
     setLocalStorage('isManager', isManager);
     setLocalStorage('userName', name);

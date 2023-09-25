@@ -16,10 +16,10 @@ export async function registerUser(registrationData) {
 
     console.log('Registration successful');
 
-    return 'Registration successful'; // Return a success message
+    return 'Registration successful';
   } catch (error) {
     console.error('Error registering user:', error);
-    throw error; // Rethrow the error for error handling in the UI
+    throw error;
   }
 }
 
