@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500&family=Montserrat&family=Raleway&display=swap');
+
+//colors
+$blue:    #138AF2 !default;
+$orange:  #F2913D !default;
+$green:   #6BCB99 !default;
+$pink:    #F20F79 !default;
+
+$colors: (
+  "blue":       $blue,
+  "orange":     $orange,
+  "green":      $green,
+  "pink":       $pink,
+) !default;
+
+$primary:       $blue !default;
+$secondary:     $orange !default;
+$tertiary:      $green !default;
+$quaternary:    $pink !default;
+
+//fonts
+$font-family-base:    'Raleway', serif;
+$font-family-headers: 'Fredoka', serif;
+$font-family-btn:     'Montserrat', serif;
