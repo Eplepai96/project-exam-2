@@ -1,0 +1,36 @@
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@500&family=Montserrat&family=Raleway&display=swap");
+p {
+  max-width: 700px;
+}
+
+body {
+  position: relative;
+  min-height: 100vh;
+}
+
+.custom-calendar {
+  width: 100%;
+  max-width: 800px;
+  min-width: 200px;
+  padding: 10px 5px;
+  align-self: center;
+  border-radius: 5px;
+  font-family: "Raleway", serif;
+}
+
+.react-calendar__tile {
+  border-radius: 2px;
+}
+.react-calendar__tile :hover {
+  font-weight: bold;
+}
+.react-calendar__tile :hover :active {
+  background-color: #F2913D;
+  color: white;
+}
+
+.react-calendar__navigation button {
+  font-weight: bold;
+}
+
+/*# sourceMappingURL=calendar.css.map */

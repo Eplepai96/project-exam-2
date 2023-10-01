@@ -9,6 +9,7 @@ import { NavigateBack } from "../components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faList, faPen } from "@fortawesome/free-solid-svg-icons";
 import { useModal, CustomModal } from "../components";
+import '../scss/components/user-specific-venues.scss'
 
 export function UserVenues() {
   const [userVenues, setUserVenues] = useState([]);

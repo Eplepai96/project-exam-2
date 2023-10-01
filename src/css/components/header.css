@@ -1,0 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@500&family=Montserrat&family=Raleway&display=swap");
+p {
+  max-width: 700px;
+}
+
+body {
+  position: relative;
+  min-height: 100vh;
+}
+
+.navbar-nav .nav-link.active {
+  color: #F20F79;
+  font-weight: bold;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #F20F79;
+}
+
+/*# sourceMappingURL=header.css.map */

@@ -6,6 +6,7 @@ import { getData } from "./api";
 import { deleteData } from "./api";
 import { CustomModal, useModal } from '../components/modal';
 import { NavigateBack } from "../components";
+import '../scss/components/user-specific-venues.scss'
 
 export function UserBookings() {
   const [userBookings, setUserBookings] = useState([]);
