@@ -78,18 +78,18 @@ function Profile() {
         <h1 className='mt-3'>User Profile</h1>
         <div className='mt-2'>
           <Link to={`/edit/profile/${userName}`}>
-            <FontAwesomeIcon icon={faPen}className="p-2 m-2"/>
+            <FontAwesomeIcon icon={faPen} className="p-2 m-2" />
           </Link>
         </div>
-        
       </div>
-      
+
       {profileData ? (
         <>
-        <div className='image-container'>
-          <img src={profileData.avatar} alt="" />
-        </div>
-          
+          {profileData.avatar && (
+            <div className='image-container'>
+              <img src={profileData.avatar} alt="" />
+            </div>
+          )}
           <p className='fw-bold mt-3'>Name: {profileData.name}</p>
           <p className='fw-bold'>Email: {profileData.email}</p>
         </>
