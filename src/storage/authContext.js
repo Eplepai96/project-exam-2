@@ -8,6 +8,7 @@ export function AuthProvider({ children }) {
   const initialAuthToken = getLocalStorage('accessToken', ''); 
   const [authToken, setAuthToken] = useState(initialAuthToken);
   const [venueManager, setVenueManager] = useState(false);
+  // The 'userName' state is used in other parts of the codebase.
   const [userName, setUserName] = useState(''); 
 
   useEffect(() => {

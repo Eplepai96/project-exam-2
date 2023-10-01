@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginUser } from '../storage/loginUser';
-import { getLocalStorage, useAuth } from '../storage';
+import { useAuth } from '../storage';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faKey } from '@fortawesome/free-solid-svg-icons';
 
