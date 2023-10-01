@@ -85,7 +85,7 @@ function Profile() {
 
       {profileData ? (
         <>
-          {profileData.avatar && (
+          {profileData.avatar !== "" && profileData.avatar !== null && (
             <div className='image-container'>
               <img src={profileData.avatar} alt="" />
             </div>
