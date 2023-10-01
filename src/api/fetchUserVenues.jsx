@@ -91,10 +91,10 @@ export function UserVenues() {
               className="user-venue rounded shadow-lg m-2 d-md-flex flex-md-row flex-column"
             >
               <div className="image-container">
-                {venue.media !== "" && venue.media !== null && (
+                {venue.media && venue.media.length > 0 && (
                   <img
-                    src={venue.media}
-                    alt={venue.media}
+                    src={venue.media[0]}
+                    alt={`Media 0`}
                     className="venue-image img-fluid m-2"
                   />
                 )}
