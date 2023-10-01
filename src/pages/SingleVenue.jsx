@@ -3,8 +3,8 @@ import SingleVenue from "../api/fetchSingleVenue";
 
 export function RenderSingleVenue () {
     return (
-        <div className="container">
+        <body className="container">
             <SingleVenue/>
-        </div>
+        </body>
     )
 }

@@ -12,11 +12,15 @@ import { RenderRegisterPage } from './pages/Register';
 import { RenderBookingPage } from './pages/BookVenue';
 import { RenderProfile } from './pages';
 import { AuthProvider } from './storage';
-import './App.css';
 import { RenderUserBookings } from './pages/UserBookings';
 import { RenderUserVenues } from './pages/UserVenues';
 import { RenderAddVenue } from './pages/AddVenue';
 import { RenderUpdateVenue } from './pages/UpdateVenue';
+import { RenderGuestlist } from './pages/Guestlist';
+import './App.css';
+import '@popperjs/core';
+import { RenderAbout } from './pages/About';
+import { RenderEditProfile } from './pages/UpdateProfile';
 
 
 function Layout() {
@@ -45,10 +49,13 @@ function App() {
             <Route path="/login" element={<RenderLoginPage />} />
             <Route path="/register/:login" element={<RenderRegisterPage />} />
             <Route path="/profile/:name" element={<RenderProfile />}/>
+            <Route path='/edit/profile/:name' element={<RenderEditProfile />} />
             <Route path="/venues/:profile" element={<RenderUserVenues />}/>
             <Route path="/bookings/:profile"  element={<RenderUserBookings />} />
             <Route path='/add/:venues/:profile' element={<RenderAddVenue />} />
             <Route path='/venues/:edit/:venueId' element={<RenderUpdateVenue />} />
+            <Route path='/venues/guestlist/:venueId' element={<RenderGuestlist />} />
+            <Route path='/about' element={<RenderAbout />} />
             <Route path="*" element={<RouteNotFound />} />
           </Route>
         </Routes>

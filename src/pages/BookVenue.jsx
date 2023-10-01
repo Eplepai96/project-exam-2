@@ -3,8 +3,8 @@ import BookVenue from "../api/bookVenue";
 
 export function RenderBookingPage() {
   return (
-    <div className="container">
+    <body className="container">
       <BookVenue />
-    </div>
+    </body>
   );
 }

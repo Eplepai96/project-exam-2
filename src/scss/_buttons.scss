@@ -1,13 +1,15 @@
 @import 'variables';
 
 .btn-primary {
-    border-color: $secondary;
-    color: $secondary;
+    background-color: $primary;
     font-family: $font-family-btn;
+    font-weight: bold;
+    border: none;
 }
 
 .btn-secondary {
-    border-color: $tertiary;
-    color: $tertiary;
+    background-color: $tertiary;
     font-family: $font-family-btn;
+    font-weight: bold;
+    border: none;
 }

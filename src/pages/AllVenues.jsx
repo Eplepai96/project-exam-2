@@ -3,8 +3,8 @@ import Venues from "../api/fetchAllVenues";
 
 export function RenderVenues () {
     return (
-        <div className="container">
+        <body className="container">
             <Venues />
-        </div>
+        </body>
     )
 }

@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { VENUE_URL, BOOKING_URL, fetchApiData } from './api';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getAuthToken } from '../storage';
+import '../scss/components/calendar.scss'
+import { NavigateBack } from '../components';
 
 function VenueInfo({ venueData }) {
   if (!venueData) {
@@ -12,6 +14,7 @@ function VenueInfo({ venueData }) {
 
   return (
     <div>
+      <NavigateBack />
       <h1>{venueData.name}</h1>
       <p className='fw-bold text-primary'>Booking</p>
     </div>
@@ -19,6 +22,7 @@ function VenueInfo({ venueData }) {
 }
 
 function BookVenue() {
+  const navigate = useNavigate()
   const { id } = useParams();
   const [selectedRange, setSelectedRange] = useState([]);
   const [venueData, setVenueData] = useState(null);
@@ -46,16 +50,21 @@ function BookVenue() {
 
   const handleBooking = async () => {
     try {
-      if (selectedRange.length !== 2 || isNaN(guests) || guests <= 0) {
-        alert('Please select a valid date range and specify the number of guests as a positive number.');
+      if (
+        selectedRange.length !== 2 ||
+        isNaN(guests) ||
+        guests <= 0 ||
+        guests > (venueData?.maxGuests || 0)
+      ) {
+        alert('Please select a valid date range and specify the number of guests within the max guests limit.');
         return;
       }
-
+  
       const [dateFrom, dateTo] = selectedRange;
-      const parsedGuests = parseInt(guests, 10);
-
+      const parsedGuests = parseInt(guests);
+  
       const token = getAuthToken();
-
+  
       const bookingResponse = await fetch(BOOKING_URL, {
         method: 'POST',
         headers: {
@@ -69,29 +78,39 @@ function BookVenue() {
           guests: parsedGuests,
         }),
       });
-
+      alert(`Successfully booked from ${dateFrom} to ${dateTo}`)
+  
+      navigate('/bookings/profile')
       if (!bookingResponse.ok) {
         throw new Error('Failed to book the venue');
       }
-
+  
     } catch (error) {
       console.error('Error booking the venue:', error);
     }
   };
 
+  if (!venueData) {
+    return null;
+  }
+  
+
   return (
     <div className='row'>
       <VenueInfo venueData={venueData} />
-      <Calendar
-        onChange={setSelectedRange}
-        value={selectedRange}
-        selectRange={true}
-        className='m-sm-3'
-      />
-      <div>
-        <h2>Venue Information</h2>
-        <label>Number of Guests:</label>
+      <div className="calendar-container">
+        <Calendar
+          onChange={setSelectedRange}
+          value={selectedRange}
+          selectRange={true}
+          className="custom-calendar"
+        />
+      </div>
+      <h2 className='mt-4'>Booking Information</h2>
+      <div className="col-md-4 col-lg-3">
+        <label>Number of Guests (max {venueData.maxGuests}):</label>
         <input
+          className='form-control col-md-3'
           type="number"
           value={guests}
           onChange={(e) => {
@@ -101,7 +120,7 @@ function BookVenue() {
             }
           }}
         />
-        <button onClick={handleBooking}>Book Venue</button>
+        <button onClick={handleBooking} className="btn btn-primary my-3">Book Venue</button>
       </div>
     </div>
   );

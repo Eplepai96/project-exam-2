@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { fetchApiData } from '../api/index';
 import { VENUE_URL } from '../api/index';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import '../scss/components/searchinput.scss'
 function SearchComponent() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
@@ -27,6 +29,11 @@ function SearchComponent() {
     const query = e.target.value.toLowerCase();
     setSearchQuery(query);
 
+    if (query.trim() === '') {
+      setSearchResults([]);
+      return;
+    }
+
     const filteredData = allData.filter((item) =>
       item.name.toLowerCase().includes(query) ||
       item.location.continent.toLowerCase().includes(query) ||
@@ -46,34 +53,40 @@ function SearchComponent() {
   };
 
   return (
-    <div>
-      <div className="search-bar">
-        <input
-          type="text"
-          placeholder="Search..."
-          value={searchQuery}
-          onChange={handleInputChange}
-        />
-        {searchQuery && (
-          <button className="clear-button" onClick={clearInput}>
-            &times;
+    <div className='row'>
+      <div className='input-group'>
+        <div className="form-outline d-flex flexwrap m-lg-auto">
+          <input
+            className='form-control m-1'
+            type="search"
+            placeholder="Search..."
+            value={searchQuery}
+            onChange={handleInputChange}
+          />
+          {searchQuery && (
+            <p className="clear-button" onClick={clearInput}></p>
+          )}
+          <button className="btn btn-primary my-2 d-flex p-2 text-white" onClick={handleSearch}>
+            <FontAwesomeIcon icon={faMagnifyingGlass} />
           </button>
-        )}
-        <button className="search-button btn btn-primary" onClick={handleSearch}>
-          Search
-        </button>
+        </div>
       </div>
-      <ul>
-        {searchResults.map((result) => (
-          <li key={result.id}>
-            <Link
-              to={`/venue/${result.location.continent}/${result.location.country}/${result.location.city}/${result.id}`}
-            >
-              {result.name} - {result.location.city}, {result.location.country}, {result.location.continent}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      {searchResults.length > 0 && (
+        <div className="d-flex flex-column">
+          <ul className='m-md-auto col-lg-3 p-0 p-l-xl-5'>
+            {searchResults.map((result) => (
+              <li className='list-unstyled bg-light p-3 m-1 color-secondary text-xl' key={result.id}>
+                <Link
+                  to={`/venue/${result.location.continent}/${result.location.country}/${result.location.city}/${result.id}`}
+                >
+                  <img src={result.media} alt={result.name} className="search-input-image" /> 
+                  {result.name} - {result.location.city}, {result.location.country}, {result.location.continent}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }

@@ -8,7 +8,7 @@ export async function loginUser(loginData) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(loginData), // Replace loginData with user input
+        body: JSON.stringify(loginData), 
       });
   
       if (!response.ok) {
@@ -16,17 +16,14 @@ export async function loginUser(loginData) {
       }
   
       const data = await response.json();
-  
-      // Extract the user's manager status from the response
       const isManager = data.venueManager;
-  
-      // Store the access token and user's manager status in localStorage
+
       setLocalStorage('accessToken', data.accessToken);
       setLocalStorage('isManager', isManager);
   
-      return data; // Return login response (e.g., user data)
+      return data; 
     } catch (error) {
       console.error('Error logging in:', error);
-      throw error; // Rethrow the error for error handling in the UI
+      throw error; 
     }
   }

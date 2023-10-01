@@ -67,12 +67,12 @@ export async function deleteData(url, token) {
     });
 
     if (!response.ok) {
-      throw new Error('Failed to cancel booking');
+      throw new Error('Failed to delete data');
     }
     
     return null;
   } catch (error) {
-    console.error('Error canceling booking:', error);
+    console.error('Error deleting data:', error);
     throw error;
   }
 }

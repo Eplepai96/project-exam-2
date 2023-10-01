@@ -25,8 +25,6 @@ export function getLocalStorage(key, defaultValue = null) {
   }
 }
 
-
-
 export function removeLocalStorage(key) {
   try {
     localStorage.removeItem(key);

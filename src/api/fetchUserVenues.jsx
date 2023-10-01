@@ -1,42 +1,45 @@
+import React, { useState, useEffect } from "react";
 import { getLocalStorage } from "../storage";
 import { PROFILE_URL, VENUE_URL } from "./api";
-import { useState, useEffect } from "react";
 import { getAuthToken } from "../storage";
 import { getData } from "./api";
-import { deleteData } from "./api"; // Import the deleteData function
+import { deleteData } from "./api";
 import { Link } from "react-router-dom";
+import { NavigateBack } from "../components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faList, faPen } from "@fortawesome/free-solid-svg-icons";
+import { useModal, CustomModal } from "../components";
 
 export function UserVenues() {
-  const [userVenues, setUserVenues] = useState([]); // Initialize userBookings as an empty array
-  const userName = getLocalStorage('userName'); // Get the userName from local storage
-
-  console.log('UserVenues function called');
+  const [userVenues, setUserVenues] = useState([]);
+  const userName = getLocalStorage("userName");
+  const {
+    isOpen,
+    modalTitle,
+    modalMessage,
+    openModal,
+    closeModal,
+    onConfirm,
+  } = useModal();
 
   useEffect(() => {
-    // Ensure that "userName" is defined before making the API request
     if (userName) {
-      // Fetch user bookings data based on the "userName" parameter
       async function fetchUserVenues() {
         try {
-          // Use the token from your storage or authentication mechanism
-          const token = getAuthToken(); // Make sure you have this function
-  
-          // Make the API request using the "userName" from local storage
-          const response = await getData(`${PROFILE_URL}/${userName}/venues`, token);
-  
-          console.log('RESPONSE', response)
-          if (!response.ok) {
-            throw new Error('Failed to fetch user venues data');
-          }
-  
-          const data = await response.json();
-          console.log(data)
+          const token = getAuthToken();
+          const response = await getData(
+            `${PROFILE_URL}/${userName}/venues`,
+            token
+          );
 
-          function formatISODate(isoDateString) {
-            const date = new Date(isoDateString);
-            return date.toLocaleString(); // You can customize the format by passing options to toLocaleString
+          console.log("RESPONSE", response);
+          if (!response.ok) {
+            throw new Error("Failed to fetch user venues data");
           }
-          // Map the data to match the expected structure
+
+          const data = await response.json();
+          console.log(data);
+
           const mappedData = data.map((item) => ({
             id: item.id,
             name: item.name,
@@ -48,33 +51,33 @@ export function UserVenues() {
             city: item.location?.city,
             meta: item.meta,
           }));
-  
-          setUserVenues(mappedData); // Set userBookings as an array of bookings
+
+          setUserVenues(mappedData);
         } catch (error) {
-          console.error('Error fetching user bookings data:', error);
+          console.error("Error fetching user venues data:", error);
         }
       }
-  
+
       fetchUserVenues();
     }
   }, [userName]);
 
-  // Function to handle booking deletion
   async function handleDeleteVenue(venueId) {
     try {
-      const token = getAuthToken(); // Get the authentication token
-      const url = `${VENUE_URL}/${venueId}`; // Construct the delete URL
-      await deleteData(url, token); // Use the deleteData function to delete the booking
-
-      // Update the userBookings state by filtering out the canceled booking
-      setUserVenues((prevVenues) => prevVenues.filter((venue) => venue.id !== venueId));
+      const token = getAuthToken();
+      const url = `${VENUE_URL}/${venueId}`;
+      await deleteData(url, token);
+      setUserVenues((prevVenues) =>
+        prevVenues.filter((venue) => venue.id !== venueId)
+      );
     } catch (error) {
-      console.error('Error deleting venue:', error);
+      console.error("Error deleting venue:", error);
     }
   }
 
   return (
     <div className="row">
+      <NavigateBack />
       <h1>Your Venues</h1>
       <Link to="/add/:venues/:profile">
         <button className="btn btn-primary m-2">Add new</button>
@@ -86,22 +89,48 @@ export function UserVenues() {
               key={venue.name}
               className="user-venue rounded shadow-lg m-2 d-md-flex flex-md-row flex-column"
             >
-              <div className="d-flex">
+              <div className="image-container">
                 <img
                   src={venue.media}
                   alt={venue.media}
-                  className="image-container img-fluid m-2"
+                  className="venue-image img-fluid m-2"
                 />
               </div>
-              <div className="d-md-flex flex-md-column flex-grow-1">
+              <div className="d-md-flex flex-md-column">
                 <div>
-                  <h2 className="m-2">{venue.name}</h2>
+                  <div className="d-flex">
+                  <h2 className="m-2">
+                    {venue.name}
+                  </h2>
+                  <Link to={`/venues/edit/${venue.id}`}>
+                    <FontAwesomeIcon icon={faPen}className="p-2 m-2"/>
+                  </Link>
+                  </div>
+                  
                   <p className="fw-bold m-2">{venue.city}</p>
                 </div>
-                <div className="mt-auto">
-                  <Link to={`/venues/edit/${venue.id}`}>
-                    <button className="btn btn-secondary m-2">Edit</button>
-                  </Link>
+                <div className="mt-auto mb-0 text-danger">
+                    <FontAwesomeIcon icon={faTrash} className="p-2"
+                      onClick={() =>
+                        openModal(
+                          "Confirm Deletion",
+                          "Are you sure you want to delete this venue? This action cannot be undone.",
+                          () => {
+                            handleDeleteVenue(venue.id);
+                            closeModal()
+                          }
+                        )
+                      }
+                    />
+                  </div>
+                <div className="d-flex mt-auto">
+                  <div className="mt-2">
+                    <Link to={`/venues/guestlist/${venue.id}`}>
+                      <button className="btn btn-primary m-2">
+                        <FontAwesomeIcon icon={faList} className="mr-2" /> Guestlist</button>
+                    </Link>
+                  </div>
+                  
                 </div>
               </div>
             </li>
@@ -110,6 +139,14 @@ export function UserVenues() {
       ) : (
         <p>No venues found.</p>
       )}
+
+      <CustomModal
+        show={isOpen}
+        title={modalTitle}
+        message={modalMessage}
+        onConfirm={onConfirm}
+        onHide={closeModal}
+      />
     </div>
   );
-      }  
+}

@@ -1,0 +1,29 @@
+@import '../variables';
+
+
+.custom-calendar {
+    width: 100%;
+    max-width: 800px;
+    min-width: 200px;
+    padding: 10px 5px;
+    align-self: center;
+    border-radius: 5px;
+    font-family: $font-family-base;
+}
+
+.react-calendar__tile {
+    border-radius: 2px;
+    & :hover {
+        font-weight: bold;
+        & :active {
+            background-color: $secondary;
+            color: white;
+        }
+}
+}
+
+.react-calendar__navigation button{
+    font-weight: bold;
+}
+
+  

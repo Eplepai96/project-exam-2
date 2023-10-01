@@ -3,8 +3,8 @@ import { UpdateVenueForm } from "../api/updateUserVenue";
 
 export function RenderUpdateVenue() {
     return(
-        <div>
+        <body className="container">
             <UpdateVenueForm />
-        </div>
+        </body>
     )
 }

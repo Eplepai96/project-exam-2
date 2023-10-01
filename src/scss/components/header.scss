@@ -1,0 +1,10 @@
+@import '../variables';
+
+.navbar-nav .nav-link.active {
+  color: $quaternary;
+  font-weight: bold;
+}
+
+.navbar-nav .nav-link:hover {
+  color: $quaternary;
+}

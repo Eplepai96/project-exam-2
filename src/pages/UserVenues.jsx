@@ -4,8 +4,8 @@ import '../scss/user-specific-venues.scss'
 
 export function RenderUserVenues() {
     return(
-        <div className="container">
+        <body className="container">
             <UserVenues />
-        </div>
+        </body>
     )
 }

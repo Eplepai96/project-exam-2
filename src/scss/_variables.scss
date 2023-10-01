@@ -5,12 +5,14 @@ $blue:    #138AF2 !default;
 $orange:  #F2913D !default;
 $green:   #6BCB99 !default;
 $pink:    #F20F79 !default;
+$gray:    #818181 !default;
 
 $colors: (
   "blue":       $blue,
   "orange":     $orange,
   "green":      $green,
   "pink":       $pink,
+  "gray":       $gray,
 ) !default;
 
 $primary:       $blue !default;
@@ -22,3 +24,12 @@ $quaternary:    $pink !default;
 $font-family-base:    'Raleway', serif;
 $font-family-headers: 'Fredoka', serif;
 $font-family-btn:     'Montserrat', serif;
+
+p {
+  max-width: 700px;
+}
+
+body {
+  position: relative;
+  min-height: 100vh;
+}

@@ -3,9 +3,9 @@ import Cities from '../api/fetchCities';
 
 export function RenderCities () {
     return (
-        <div className='container'>
+        <body className='container'>
             <Cities />
-        </div>
+        </body>
         
     )
 }

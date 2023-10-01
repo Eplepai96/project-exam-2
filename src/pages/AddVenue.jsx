@@ -3,8 +3,8 @@ import { AddVenueForm } from "../api/postUserVenue";
 
 export function RenderAddVenue() {
     return(
-        <div>
+        <body className="container">
             <AddVenueForm />
-        </div>
+        </body>
     )
 }

@@ -3,8 +3,8 @@ import Countries from '../api/fetchCountries';
 
 export function RenderCountries () {
     return (
-        <div className='container'>
+        <body className='container'>
             <Countries />
-        </div>
+        </body>
     )
 }

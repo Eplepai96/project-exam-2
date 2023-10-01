@@ -3,6 +3,9 @@ import { LoginForm } from "../components/loginForm";
 
 export function RenderLoginPage () {
     return (
-        <LoginForm/>
+        <body className="container">
+            <LoginForm/>
+        </body>
+        
     )
 }
