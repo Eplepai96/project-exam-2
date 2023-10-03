@@ -1,6 +1,5 @@
 # Project exam 2
-
-
+![Project-exam-2-screenshot](https://github.com/Eplepai96/project-exam-2/assets/95239043/8f45586b-2eae-434a-9ced-280d657cb643)
 
 ## Description
 I was tasked with creating a frontend application for booking and hosting venues. The project has two main contexts; manager and customer. In addition to this, there is a third interface for users who are not registered. 
